@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Users", :type => :request do
 
-  before(:all) do
-    @valid_user = FactoryGirl.create :user
+  before(:each) do
+    @user1 = FactoryGirl.create :user, name: 'Nate Sexton'
+    @user2 = FactoryGirl.create :user, name: 'Paul McBeth'
   end
 
   def authenticated_header(user)
@@ -23,22 +24,22 @@ RSpec.describe "Users", :type => :request do
     end
 
     it "responds successfully" do
-      get '/users', headers: authenticated_header(@valid_user)
+      get '/users', headers: authenticated_header(@user1)
 
       assert_response :success
     end
+
   end
 
   describe "GET /users/:id" do
     it "gets the logged in user" do
-      get user_path(@valid_user), headers: authenticated_header(@valid_user)
+      get user_path(@user1), headers: authenticated_header(@user1)
 
       assert_response :success
     end
 
     it "does not allow to view other users" do
-      user2 = FactoryGirl.create :user, name: 'Other User'
-      get user_path(user2), headers: authenticated_header(@valid_user)
+      get user_path(@user2), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 401
     end
@@ -46,14 +47,13 @@ RSpec.describe "Users", :type => :request do
 
   describe "DELETE /users/:id" do
     it "deletes the specified user" do
-      delete user_path(@valid_user), headers: authenticated_header(@valid_user)
+      delete user_path(@user1), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 204
     end
 
     it "does not allow deletion of other users" do
-      user2 = FactoryGirl.create :user, name: 'Other User'
-      delete user_path(user2), headers: authenticated_header(@valid_user)
+      delete user_path(@user2), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 401
     end
