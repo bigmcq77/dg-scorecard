@@ -2,14 +2,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_user, except: :create
 
+  # GET /users
   def index
     @users = User.all
+    # allow any auth'd user to see the list of users
     if current_user
       render json: @users
     end
   end
 
+  # GET /users/:id
   def show
+    # only allow the current user to view their own page
     if current_user == @user
       render json: current_user
     else
@@ -17,6 +21,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users
   def create
     @user = User.new(user_params)
 
@@ -27,7 +32,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT/PATCH /users/:id
   def update
+    # only allow the current user to edit their own page
     if current_user == @user
       if @user.update(user_params)
         render json: @user, status: 200
@@ -40,7 +47,9 @@ class UsersController < ApplicationController
   end
 
 
+  # DELETE /users/:id
   def destroy
+    # only allow the current user to delete their self
     if current_user == @user
       @user.destroy
       head 204
