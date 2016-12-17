@@ -23,12 +23,18 @@ RSpec.describe "Users", :type => :request do
 
     end
 
-    it "responds successfully" do
+    it "gets all of the users" do
       get '/users', headers: authenticated_header(@user1)
 
       assert_response :success
-    end
 
+      body = JSON.parse(response.body)
+      user_names = body['data'].map{|user| user['attributes']['name'] }
+      user_ids = body['data'].map{|user| user['id'].to_i }
+
+      expect(user_names).to match_array([@user1.name, @user2.name])
+      expect(user_ids).to match_array([@user1.id, @user2.id])
+    end
   end
 
   describe "GET /users/:id" do
@@ -36,12 +42,47 @@ RSpec.describe "Users", :type => :request do
       get user_path(@user1), headers: authenticated_header(@user1)
 
       assert_response :success
+
+      body = JSON.parse(response.body)
+      user_name = body['data']['attributes']['name']
+      user_id = body['data']['id'].to_i
+      user_email = body['data']['attributes']['email']
+
+      expect(user_name).to eq @user1.name
+      expect(user_id).to eq @user1.id
+      expect(user_email).to eq @user1.email
     end
 
     it "does not allow to view other users" do
       get user_path(@user2), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 401
+    end
+  end
+
+  describe "POST /users/" do
+    it "creates the user" do
+      user = {
+        data: {
+          type: "users",
+          attributes: {
+            name: "Philo Brathwaite",
+            email: "albatrossboss@gmail.com",
+            password: "password",
+            password_confirmation: "password"
+          }
+        }
+      }
+
+      post '/users',
+        params: user.to_json,
+        headers: { 'Content-Type': 'application/vnd.api+json' }
+
+      expect(response.status).to eq 201
+
+      body = JSON.parse(response.body)
+      user_name = body['data']['attributes']['name']
+      expect(user_name).to eq "Philo Brathwaite"
     end
   end
 
