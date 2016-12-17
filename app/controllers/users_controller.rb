@@ -27,6 +27,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    if current_user == @user
+      if @user.update(user_params)
+        render json: @user, status: 200
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "Not Authorized" }, status: 401
+    end
+  end
+
+
   def destroy
     if current_user == @user
       @user.destroy

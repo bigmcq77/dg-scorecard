@@ -86,6 +86,25 @@ RSpec.describe "Users", :type => :request do
     end
   end
 
+  describe "PUT /users/:id" do
+    it "updates the user" do
+      user = {
+        data: {
+          type: "users",
+          attributes: {
+            name: "Nathan Sexton"
+          }
+        }
+      }
+
+      put user_path(@user1),
+        params: user.to_json,
+        headers: authenticated_header(@user1)
+
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "DELETE /users/:id" do
     it "deletes the specified user" do
       delete user_path(@user1), headers: authenticated_header(@user1)
