@@ -10,7 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216180818) do
+ActiveRecord::Schema.define(version: 20161218191021) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "num_holes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "holes", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "number"
+    t.integer  "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_holes_on_course_id"
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.string   "weather"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_rounds_on_course_id"
+    t.index ["user_id"], name: "index_rounds_on_user_id"
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.integer  "round_id"
+    t.integer  "hole_id"
+    t.integer  "user_id"
+    t.integer  "strokes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hole_id"], name: "index_scores_on_hole_id"
+    t.index ["round_id"], name: "index_scores_on_round_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
