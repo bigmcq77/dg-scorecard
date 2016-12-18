@@ -11,6 +11,7 @@ RSpec.describe "Users", :type => :request do
     token = Knock::AuthToken.new(payload: { sub: user.id }).token
 
     {
+      'Content-Type': "application/vnd.api+json",
       'Authorization': "Bearer #{token}"
     }
   end
@@ -52,12 +53,6 @@ RSpec.describe "Users", :type => :request do
       expect(user_id).to eq @user1.id
       expect(user_email).to eq @user1.email
     end
-
-    it "does not allow to view other users" do
-      get user_path(@user2), headers: authenticated_header(@user1)
-
-      expect(response.status).to eq 401
-    end
   end
 
   describe "POST /users/" do
@@ -68,8 +63,7 @@ RSpec.describe "Users", :type => :request do
           attributes: {
             name: "Philo Brathwaite",
             email: "albatrossboss@gmail.com",
-            password: "password",
-            password_confirmation: "password"
+            password: "password"
           }
         }
       }
@@ -91,6 +85,7 @@ RSpec.describe "Users", :type => :request do
       user = {
         data: {
           type: "users",
+          id: @user1.id,
           attributes: {
             name: "Nathan Sexton"
           }
