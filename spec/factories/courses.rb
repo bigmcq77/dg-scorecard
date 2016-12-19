@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :course do
-    name "MyString"
-    num_holes 1
+    name 'Ber Juan'
+    num_holes 9
   end
 end
