@@ -82,6 +82,53 @@ RSpec.describe 'Holes', :type => :request do
         headers: authenticated_header(@user1)
       expect(response.status).to eq 201
     end
+
+    it 'checks auth' do
+      post '/holes',
+        headers: { 'Content-Type': 'application/vnd.api+json' }
+      assert_response :unauthorized
+    end
+  end
+
+  describe 'PUT /holes/:id' do
+    it 'updates the hole' do
+      hole = {
+        data: {
+          type: 'holes',
+          id: @hole1.id,
+          attributes: {
+            par: @hole1.par+1
+          }
+        }
+      }
+
+      put hole_path(@hole1),
+        params: hole.to_json,
+        headers: authenticated_header(@user1)
+      body = JSON.parse(response.body)
+      par = body['data']['attributes']['par'].to_i
+      expect(response.status).to eq 200
+      expect(par).to eq @hole1.par+1
+    end
+
+    it 'checks auth' do
+      put hole_path(@hole1),
+        headers: { 'Content-Type': 'application/vnd.api+json' }
+      assert_response :unauthorized
+    end
+  end
+
+  describe 'DELETE /holes/:id' do
+    it 'deletes the hole' do
+      delete hole_path(@hole1), headers: authenticated_header(@user1)
+      expect(response.status).to eq 204
+    end
+
+    it 'checks auth' do
+      delete hole_path(@hole1),
+        headers: { 'Content-Type': 'application/vnd.api+json' }
+      assert_response :unauthorized
+    end
   end
 end
 
