@@ -8,15 +8,6 @@ RSpec.describe 'Holes', :type => :request do
     @user1 = FactoryGirl.create :user, name: 'Nate Sexton'
   end
 
-  def authenticated_header(user)
-    token = Knock::AuthToken.new(payload: { sub: user.id }).token
-
-    {
-      'Content-Type': 'application/vnd.api+json',
-      'Authorization': "Bearer #{token}"
-    }
-  end
-
   describe 'GET /holes' do
     it 'checks auth' do
       get '/holes'

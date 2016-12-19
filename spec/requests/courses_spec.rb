@@ -9,16 +9,7 @@ RSpec.describe 'Courses', :type => :request do
     @user2 = FactoryGirl.create :user, name: 'Paul McBeth'
   end
 
-  def authenticated_header(user)
-    token = Knock::AuthToken.new(payload: { sub: user.id }).token
-
-    {
-      'Content-Type': 'application/vnd.api+json',
-      'Authorization': "Bearer #{token}"
-    }
-  end
-
-  describe 'GET /courses' do
+    describe 'GET /courses' do
     it 'returns 401 unauthorized' do
       get '/courses'
       expect(response.status).to eq 401

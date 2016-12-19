@@ -7,16 +7,7 @@ RSpec.describe "Users", :type => :request do
     @user2 = FactoryGirl.create :user, name: 'Paul McBeth'
   end
 
-  def authenticated_header(user)
-    token = Knock::AuthToken.new(payload: { sub: user.id }).token
-
-    {
-      'Content-Type': 'application/vnd.api+json',
-      'Authorization': "Bearer #{token}"
-    }
-  end
-
-  describe 'GET /users' do
+   describe 'GET /users' do
     it 'returns 401 unauthorized' do
       get '/users'
 
