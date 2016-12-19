@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :hole do
-    course nil
+    association :course
     number 1
-    par 1
+    par 3
   end
 end
