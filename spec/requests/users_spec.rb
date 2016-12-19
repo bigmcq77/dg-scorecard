@@ -11,20 +11,20 @@ RSpec.describe "Users", :type => :request do
     token = Knock::AuthToken.new(payload: { sub: user.id }).token
 
     {
-      'Content-Type': "application/vnd.api+json",
+      'Content-Type': 'application/vnd.api+json',
       'Authorization': "Bearer #{token}"
     }
   end
 
-  describe "GET /users" do
-    it "returns 401 unauthorized" do
+  describe 'GET /users' do
+    it 'returns 401 unauthorized' do
       get '/users'
 
       expect(response.status).to eq 401
 
     end
 
-    it "gets all of the users" do
+    it 'gets all of the users' do
       get '/users', headers: authenticated_header(@user1)
 
       assert_response :success
@@ -38,8 +38,8 @@ RSpec.describe "Users", :type => :request do
     end
   end
 
-  describe "GET /users/:id" do
-    it "gets the logged in user" do
+  describe 'GET /users/:id' do
+    it 'gets the logged in user' do
       get user_path(@user1), headers: authenticated_header(@user1)
 
       assert_response :success
@@ -55,15 +55,15 @@ RSpec.describe "Users", :type => :request do
     end
   end
 
-  describe "POST /users/" do
-    it "creates the user" do
+  describe 'POST /users/' do
+    it 'creates the user' do
       user = {
         data: {
-          type: "users",
+          type: 'users',
           attributes: {
-            name: "Philo Brathwaite",
-            email: "albatrossboss@gmail.com",
-            password: "password"
+            name: 'Philo Brathwaite',
+            email: 'albatrossboss@gmail.com',
+            password: 'password'
           }
         }
       }
@@ -76,18 +76,18 @@ RSpec.describe "Users", :type => :request do
 
       body = JSON.parse(response.body)
       user_name = body['data']['attributes']['name']
-      expect(user_name).to eq "Philo Brathwaite"
+      expect(user_name).to eq 'Philo Brathwaite'
     end
   end
 
-  describe "PUT /users/:id" do
-    it "updates the user" do
+  describe 'PUT /users/:id' do
+    it 'updates the user' do
       user = {
         data: {
-          type: "users",
+          type: 'users',
           id: @user1.id,
           attributes: {
-            name: "Nathan Sexton"
+            name: 'Nathan Sexton'
           }
         }
       }
@@ -98,16 +98,34 @@ RSpec.describe "Users", :type => :request do
 
       expect(response.status).to eq 200
     end
+
+    it 'does not allow updating of other users' do
+      user = {
+        data: {
+          type: 'users',
+          id: @user2.id,
+          attributes: {
+            name: 'Donald Trump'
+          }
+        }
+      }
+
+      put user_path(@user2),
+        params: user.to_json,
+        headers: authenticated_header(@user1)
+
+      expect(response.status).to eq 401
+    end
   end
 
-  describe "DELETE /users/:id" do
-    it "deletes the specified user" do
+  describe 'DELETE /users/:id' do
+    it 'deletes the specified user' do
       delete user_path(@user1), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 204
     end
 
-    it "does not allow deletion of other users" do
+    it 'does not allow deletion of other users' do
       delete user_path(@user2), headers: authenticated_header(@user1)
 
       expect(response.status).to eq 401
