@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Disc Golf Scorecard API
+----
 
-Things you may want to cover:
+This is a Ruby on Rails API that stores disc golf rounds following the [JSON:API spec](http://jsonapi.org/) courtesy of the [jsonapi-resources gem](https://github.com/cerebris/jsonapi-resources)
 
-* Ruby version
+[JSON Web Tokens](https://jwt.io/) are used for authorization courtesy of the [knock gem](https://github.com/nsarno/knock)
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Rails version: 5.0.0.1
+### Ruby version: 2.2.4p230
