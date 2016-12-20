@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :round do
-    user nil
-    course nil
-    weather "MyString"
+    association :user
+    association :course
+    weather "Sunny"
   end
 end
