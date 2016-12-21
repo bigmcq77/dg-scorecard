@@ -8,10 +8,24 @@ RSpec.describe 'Rounds', :type => :request do
     @round = FactoryGirl.create :round, user: @user1, course: @course
   end
 
+  let(:round) {
+    round = {
+      data: {
+        type: 'rounds',
+        attributes: {
+          'user-id': @user1.id,
+          'course-id': @course.id,
+          weather: 'Cloudy'
+        }
+      }
+    }
+
+  }
+
   describe 'GET /rounds' do
     it 'checks auth' do
       get '/rounds'
-      assert_response :unauthorized
+      assert_response :forbidden
     end
 
     it 'gets all of the rounds' do
@@ -37,16 +51,6 @@ RSpec.describe 'Rounds', :type => :request do
 
   describe 'POST /rounds' do
     it 'creates the round' do
-      round = {
-        data: {
-          type: 'rounds',
-          attributes: {
-            'user-id': @user1.id,
-            'course-id': @course.id,
-            weather: 'Cloudy'
-          }
-        }
-      }
 
       post '/rounds',
         params: round.to_json,
@@ -56,12 +60,13 @@ RSpec.describe 'Rounds', :type => :request do
 
     it 'checks auth' do
       post '/rounds',
+        params: round.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
 
     it 'only allows users to create rounds for themselves' do
-       round = {
+      round = {
         data: {
           type: 'rounds',
           attributes: {
@@ -72,10 +77,10 @@ RSpec.describe 'Rounds', :type => :request do
         }
       }
 
-       post '/rounds',
-         params: round.to_json,
-         headers: authenticated_header(@user1)
-       expect(response.status).to eq 401
+      post '/rounds',
+        params: round.to_json,
+        headers: authenticated_header(@user1)
+      expect(response.status).to eq 403
     end
   end
 
