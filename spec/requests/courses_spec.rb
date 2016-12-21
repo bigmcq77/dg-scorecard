@@ -9,10 +9,22 @@ RSpec.describe 'Courses', :type => :request do
     @user2 = FactoryGirl.create :user, name: 'Paul McBeth'
   end
 
-    describe 'GET /courses' do
-    it 'returns 401 unauthorized' do
+  let(:course) {
+    course = {
+      data: {
+        type: 'courses',
+        attributes: {
+          name: "Lion's Club",
+          'num-holes': 18
+        }
+      }
+    }
+  }
+
+  describe 'GET /courses' do
+    it 'returns 403 unauthorized' do
       get '/courses'
-      expect(response.status).to eq 401
+      expect(response.status).to eq 403
     end
 
     it 'gets all of the courses' do
@@ -46,15 +58,6 @@ RSpec.describe 'Courses', :type => :request do
 
   describe 'POST /courses/' do
     it 'creates the course' do
-      course = {
-        data: {
-          type: 'courses',
-          attributes: {
-            name: "Lion's Club",
-            'num-holes': 18
-          }
-        }
-      }
 
       post '/courses',
         params: course.to_json,
@@ -64,8 +67,9 @@ RSpec.describe 'Courses', :type => :request do
 
     it 'checks auth' do
       post '/courses',
+        params: course.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 
@@ -92,9 +96,20 @@ RSpec.describe 'Courses', :type => :request do
     end
 
     it 'checks auth' do
-       put course_path(@course1),
-         headers: { 'Content-Type': 'application/vnd.api+json' }
-       assert_response :unauthorized
+      course = {
+        data: {
+          type: 'courses',
+          id: @course1.id,
+          attributes: {
+            'num-holes': 18
+          }
+        }
+      }
+
+      put course_path(@course1),
+        params: course.to_json,
+        headers: { 'Content-Type': 'application/vnd.api+json' }
+      assert_response :forbidden
     end
   end
 
@@ -107,7 +122,7 @@ RSpec.describe 'Courses', :type => :request do
     it 'checks auth' do
       delete course_path(@course1),
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 end
