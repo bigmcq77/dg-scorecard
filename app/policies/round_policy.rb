@@ -16,7 +16,7 @@ class RoundPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    user.id == record.user_id
   end
 
   def destroy?
