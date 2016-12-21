@@ -1,4 +1,4 @@
-class ScoreResource < JSONAPI::Resource
+class ScoreResource < BaseResource
   attributes :strokes
   has_one :hole
   has_one :user

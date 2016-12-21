@@ -1,4 +1,4 @@
-class RoundResource < JSONAPI::Resource
+class RoundResource < BaseResource
   attributes :weather, :user_id, :course_id
   has_many :scores
   has_one :user

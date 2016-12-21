@@ -1,4 +1,4 @@
-class HoleResource < JSONAPI::Resource
+class HoleResource < BaseResource
   attributes :number, :par, :course_id
   has_one :course
 

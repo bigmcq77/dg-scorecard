@@ -1,4 +1,4 @@
-class UserResource < JSONAPI::Resource
+class UserResource < BaseResource
   attributes :name, :email, :password, :password_confirmation
   has_many :rounds
 
