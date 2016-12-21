@@ -8,10 +8,10 @@ RSpec.describe "Users", :type => :request do
   end
 
    describe 'GET /users' do
-    it 'returns 401 unauthorized' do
+    it 'checks auth' do
       get '/users'
 
-      expect(response.status).to eq 401
+      expect(response.status).to eq 403
 
     end
 
@@ -105,7 +105,7 @@ RSpec.describe "Users", :type => :request do
         params: user.to_json,
         headers: authenticated_header(@user1)
 
-      expect(response.status).to eq 401
+      expect(response.status).to eq 403
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.describe "Users", :type => :request do
     it 'does not allow deletion of other users' do
       delete user_path(@user2), headers: authenticated_header(@user1)
 
-      expect(response.status).to eq 401
+      expect(response.status).to eq 403
     end
   end
 end
