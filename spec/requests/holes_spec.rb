@@ -8,10 +8,23 @@ RSpec.describe 'Holes', :type => :request do
     @user1 = FactoryGirl.create :user, name: 'Nate Sexton'
   end
 
+  let(:hole) {
+    hole = {
+      data: {
+        type: 'holes',
+        attributes: {
+          number: 1,
+          par: 4,
+          'course-id': @course.id
+        }
+      }
+    }
+
+  }
   describe 'GET /holes' do
     it 'checks auth' do
       get '/holes'
-      assert_response :unauthorized
+      assert_response :forbidden
     end
 
     it 'gets all of the holes' do
@@ -76,8 +89,9 @@ RSpec.describe 'Holes', :type => :request do
 
     it 'checks auth' do
       post '/holes',
+        params: hole.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 
@@ -103,9 +117,20 @@ RSpec.describe 'Holes', :type => :request do
     end
 
     it 'checks auth' do
+      hole = {
+        data: {
+          type: 'holes',
+          id: @hole1.id,
+          attributes: {
+            par: @hole1.par+1
+          }
+        }
+      }
+
       put hole_path(@hole1),
+        params: hole.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 
@@ -118,7 +143,7 @@ RSpec.describe 'Holes', :type => :request do
     it 'checks auth' do
       delete hole_path(@hole1),
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :unauthorized
+      assert_response :forbidden
     end
   end
 end
