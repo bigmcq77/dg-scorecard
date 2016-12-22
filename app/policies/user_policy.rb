@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    record == @user
+    !user.nil?
   end
 
   # anybody can create a user
