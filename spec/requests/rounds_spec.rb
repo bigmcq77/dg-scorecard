@@ -107,4 +107,18 @@ RSpec.describe 'Rounds', :type => :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe 'DELETE /rounds/:id' do
+    it 'deletes the round' do
+      delete round_path(@round), headers: authenticated_header(@user1)
+
+      expect(response.status).to eq 204
+    end
+
+    it "does not allow deletion of other users' rounds" do
+      delete round_path(@round), headers: authenticated_header(@user2)
+
+      expect(response.status).to eq 401
+    end
+  end
 end

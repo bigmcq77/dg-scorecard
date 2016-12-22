@@ -20,7 +20,7 @@ class RoundPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    user.id == record.user_id
   end
 
   # class Scope < Scope
