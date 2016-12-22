@@ -14,12 +14,13 @@ RSpec.describe 'Holes', :type => :request do
         type: 'holes',
         attributes: {
           number: 1,
-          par: 4,
-          'course-id': @course.id
+          par: 4
+        },
+        relationships: {
+          course: { data: { type: 'courses', id: @course.id } }
         }
       }
     }
-
   }
   describe 'GET /holes' do
     it 'checks auth' do
@@ -70,17 +71,6 @@ RSpec.describe 'Holes', :type => :request do
 
   describe 'POST /holes/' do
     it 'creates the hole' do
-      hole = {
-        data: {
-          type: 'holes',
-          attributes: {
-            number: 1,
-            par: 4,
-            'course-id': @course.id
-          }
-        }
-      }
-
       post '/holes',
         params: hole.to_json,
         headers: authenticated_header(@user1)

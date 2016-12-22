@@ -1,8 +1,4 @@
 class HoleResource < BaseResource
-  attributes :number, :par, :course_id
+  attributes :number, :par
   has_one :course
-
-  def fetchable_fields
-    super - [:course_id]
-  end
 end
