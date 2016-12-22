@@ -5,6 +5,7 @@ RSpec.describe 'Scores', :type => :request do
     @course = FactoryGirl.create :course
     @hole1 = FactoryGirl.create :hole, course: @course
     @hole2 = FactoryGirl.create :hole, course: @course, number: 2
+    @hole3 = FactoryGirl.create :hole, course: @course, number: 3
     @user1 = FactoryGirl.create :user
     @user2 = FactoryGirl.create :user
     @round = FactoryGirl.create :round, user: @user1, course: @course
@@ -26,7 +27,7 @@ RSpec.describe 'Scores', :type => :request do
         },
         relationships: {
           user: { data: { type: 'users', id: @user1.id } },
-          hole: { data: { type: 'holes', id: @hole1.id } },
+          hole: { data: { type: 'holes', id: @hole3.id } },
           round: { data: { type: 'rounds', id: @round.id } }
         }
       }
