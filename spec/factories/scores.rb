@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :score do
-    round nil
-    hole nil
-    user nil
-    strokes 1
+    association :round
+    association :hole
+    association :user
+    strokes 3
   end
 end
