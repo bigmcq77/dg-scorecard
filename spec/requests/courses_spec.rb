@@ -22,9 +22,9 @@ RSpec.describe 'Courses', :type => :request do
   }
 
   describe 'GET /courses' do
-    it 'returns 403 unauthorized' do
+    it 'returns 401 unauthorized' do
       get '/courses'
-      expect(response.status).to eq 403
+      expect(response.status).to eq 401
     end
 
     it 'gets all of the courses' do
@@ -69,7 +69,7 @@ RSpec.describe 'Courses', :type => :request do
       post '/courses',
         params: course.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 
@@ -109,7 +109,7 @@ RSpec.describe 'Courses', :type => :request do
       put course_path(@course1),
         params: course.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 
@@ -122,7 +122,7 @@ RSpec.describe 'Courses', :type => :request do
     it 'checks auth' do
       delete course_path(@course1),
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 end

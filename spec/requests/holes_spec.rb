@@ -24,7 +24,7 @@ RSpec.describe 'Holes', :type => :request do
   describe 'GET /holes' do
     it 'checks auth' do
       get '/holes'
-      assert_response :forbidden
+      assert_response :unauthorized
     end
 
     it 'gets all of the holes' do
@@ -91,7 +91,7 @@ RSpec.describe 'Holes', :type => :request do
       post '/holes',
         params: hole.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 
@@ -130,7 +130,7 @@ RSpec.describe 'Holes', :type => :request do
       put hole_path(@hole1),
         params: hole.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 
@@ -143,7 +143,7 @@ RSpec.describe 'Holes', :type => :request do
     it 'checks auth' do
       delete hole_path(@hole1),
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
   end
 end

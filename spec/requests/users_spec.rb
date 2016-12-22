@@ -11,7 +11,7 @@ RSpec.describe "Users", :type => :request do
     it 'checks auth' do
       get '/users'
 
-      expect(response.status).to eq 403
+      expect(response.status).to eq 401
 
     end
 
@@ -105,7 +105,7 @@ RSpec.describe "Users", :type => :request do
         params: user.to_json,
         headers: authenticated_header(@user1)
 
-      expect(response.status).to eq 403
+      expect(response.status).to eq 401
     end
   end
 
@@ -119,7 +119,7 @@ RSpec.describe "Users", :type => :request do
     it 'does not allow deletion of other users' do
       delete user_path(@user2), headers: authenticated_header(@user1)
 
-      expect(response.status).to eq 403
+      expect(response.status).to eq 401
     end
   end
 end

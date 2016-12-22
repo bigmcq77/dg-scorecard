@@ -11,6 +11,6 @@ class ApplicationController < ActionController::API
   end
 
   def user_not_authorized
-    head :forbidden
+    head :unauthorized
   end
 end

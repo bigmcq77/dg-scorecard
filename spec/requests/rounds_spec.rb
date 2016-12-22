@@ -25,7 +25,7 @@ RSpec.describe 'Rounds', :type => :request do
   describe 'GET /rounds' do
     it 'checks auth' do
       get '/rounds'
-      assert_response :forbidden
+      assert_response :unauthorized
     end
 
     it 'gets all of the rounds' do
@@ -62,7 +62,7 @@ RSpec.describe 'Rounds', :type => :request do
       post '/rounds',
         params: round.to_json,
         headers: { 'Content-Type': 'application/vnd.api+json' }
-      assert_response :forbidden
+      assert_response :unauthorized
     end
 
     it 'only allows users to create rounds for themselves' do
@@ -80,7 +80,7 @@ RSpec.describe 'Rounds', :type => :request do
       post '/rounds',
         params: round.to_json,
         headers: authenticated_header(@user1)
-      expect(response.status).to eq 403
+      expect(response.status).to eq 401
     end
   end
 
