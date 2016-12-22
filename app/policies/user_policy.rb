@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    true
+    !user.nil?
   end
 
   def show?
@@ -23,10 +23,4 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     record == @user
   end
-
-  # class Scope < Scope
-  #   def resolve
-  #     scope
-  #   end
-  # end
 end

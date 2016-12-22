@@ -1,6 +1,6 @@
 class CoursePolicy < ApplicationPolicy
   def index?
-    true
+    !user.nil?
   end
 
   def show?
@@ -8,7 +8,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    !user.nil?
   end
 
   def new?
@@ -16,10 +16,10 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    !user.nil?
   end
 
   def destroy?
-    true
+    !user.nil?
   end
 end

@@ -1,6 +1,6 @@
 class RoundPolicy < ApplicationPolicy
   def index?
-    true
+    !user.nil?
   end
 
   def show?
@@ -22,4 +22,10 @@ class RoundPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  # class Scope < Scope
+  #   def resolve
+  #     scope.where(user: @user)
+  #   end
+  # end
 end
