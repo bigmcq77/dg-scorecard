@@ -4,7 +4,7 @@ class RoundPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    !user.nil?
   end
 
   def create?

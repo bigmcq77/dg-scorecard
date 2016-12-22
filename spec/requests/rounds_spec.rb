@@ -49,6 +49,11 @@ RSpec.describe 'Rounds', :type => :request do
       weather = body['data']['attributes']['weather']
       expect(weather).to eq @round.weather
     end
+
+    it 'checks auth' do
+      get round_path(@round)
+      assert_response :unauthorized
+    end
   end
 
   describe 'POST /rounds' do
