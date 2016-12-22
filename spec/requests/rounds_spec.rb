@@ -13,9 +13,11 @@ RSpec.describe 'Rounds', :type => :request do
       data: {
         type: 'rounds',
         attributes: {
-          'user-id': @user1.id,
-          'course-id': @course.id,
           weather: 'Cloudy'
+        },
+        relationships: {
+          user: { data: { type: 'users', id: @user1.id } },
+          course: { data: { type: 'courses', id: @course.id } }
         }
       }
     }
@@ -70,9 +72,11 @@ RSpec.describe 'Rounds', :type => :request do
         data: {
           type: 'rounds',
           attributes: {
-            'user-id': @user2.id,
-            'course-id': @course.id,
             weather: 'Cloudy'
+          },
+          relationships: {
+            user: { data: { type: 'users', id: @user2.id } },
+            course: { data: { type: 'courses', id: @course.id } }
           }
         }
       }

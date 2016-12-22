@@ -13,17 +13,25 @@ class RoundsController < ApplicationController
   private
 
     def load_user
-      if params[:data] && params[:data][:attributes]
-        user_id = params[:data][:attributes][:'user-id']
+      if id_exists?
+        user_id = params[:data][:relationships][:user][:data][:id]
         if User.exists?(id: user_id)
           @user = User.find(user_id)
         else
-          # user_id wasn't valid
+          # bad user id
           head :bad_request
         end
       else
-        # user_id wasn't passed in
+        # user id not passed in
         head :bad_request
       end
+    end
+
+    # checks if the user id is passed in
+    def id_exists?
+      params[:data] && params[:data][:relationships] &&
+        params[:data][:relationships][:user] &&
+        params[:data][:relationships][:user][:data] &&
+        params[:data][:relationships][:user][:data][:id]
     end
 end
