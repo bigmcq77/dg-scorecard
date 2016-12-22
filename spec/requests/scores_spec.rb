@@ -103,4 +103,54 @@ RSpec.describe 'Scores', :type => :request do
       assert_response :unauthorized
     end
   end
+
+  describe 'PUT /scores/:id' do
+    it 'updates the score' do
+      score = {
+        data: {
+          type: 'scores',
+          id: @score1.id,
+          attributes: {
+            strokes: 4
+          }
+        }
+      }
+
+      put score_path(@score1),
+        params: score.to_json,
+        headers: authenticated_header(@user1)
+
+      assert_response :success
+    end
+
+    it 'only allows users to update their own scores' do
+      score = {
+        data: {
+          type: 'scores',
+          id: @score1.id,
+          attributes: {
+            strokes: 4
+          }
+        }
+      }
+
+      put score_path(@score1),
+        params: score.to_json,
+        headers: authenticated_header(@user2)
+
+      assert_response :unauthorized
+    end
+  end
+
+  describe 'DELETE /scores/:id' do
+    it 'deletes the score' do
+      delete score_path(@score1), headers: authenticated_header(@user1)
+      assert_response :success
+    end
+
+    it "does not allow deletion of other users' scores" do
+      delete score_path(@score1), headers: authenticated_header(@user2)
+      assert_response :unauthorized
+    end
+  end
 end
