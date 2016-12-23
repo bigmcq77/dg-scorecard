@@ -16,10 +16,10 @@ class ScorePolicy < ApplicationPolicy
   end
 
   def update?
-    user.id == record.user_id
+    user.id == record.round.user_id
   end
 
   def destroy?
-    user.id == record.user_id
+    user.id == record.round.user_id
   end
 end

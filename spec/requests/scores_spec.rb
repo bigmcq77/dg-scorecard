@@ -9,12 +9,8 @@ RSpec.describe 'Scores', :type => :request do
     @user1 = FactoryGirl.create :user
     @user2 = FactoryGirl.create :user
     @round = FactoryGirl.create :round, user: @user1, course: @course
-    @score1 = FactoryGirl.create :score, user: @user1,
-      hole: @hole1,
-      round: @round
-    @score2 = FactoryGirl.create :score, user: @user1,
-      hole: @hole2,
-      round: @round,
+    @score1 = FactoryGirl.create :score, hole: @hole1, round: @round
+    @score2 = FactoryGirl.create :score, hole: @hole2, round: @round,
       strokes: 5
   end
 
@@ -26,7 +22,6 @@ RSpec.describe 'Scores', :type => :request do
           strokes: 3
         },
         relationships: {
-          user: { data: { type: 'users', id: @user1.id } },
           hole: { data: { type: 'holes', id: @hole3.id } },
           round: { data: { type: 'rounds', id: @round.id } }
         }
@@ -91,8 +86,7 @@ RSpec.describe 'Scores', :type => :request do
             strokes: 3
           },
           relationships: {
-            user: { data: { type: 'users', id: @user2.id } },
-            hole: { data: { type: 'holes', id: @hole1.id } },
+            hole: { data: { type: 'holes', id: @hole3.id } },
             round: { data: { type: 'rounds', id: @round.id } }
           }
         }
@@ -100,7 +94,8 @@ RSpec.describe 'Scores', :type => :request do
 
       post '/scores',
         params: score.to_json,
-        headers: authenticated_header(@user1)
+        headers: authenticated_header(@user2)
+      puts response.body
       assert_response :unauthorized
     end
   end
