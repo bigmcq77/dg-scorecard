@@ -18,6 +18,5 @@ r = Round.create(user: user, course: c, weather: "Sunny")
 
 # Create 18 random scores
 18.times do |i|
-  Score.create(round: r, hole: Hole.find(i+1),
-               user: user, strokes: Faker::Number.between(1,6))
+  Score.create(round: r, hole: Hole.find(i+1), strokes: Faker::Number.between(1,6))
 end
