@@ -14,7 +14,9 @@ This is a Ruby on Rails API that stores disc golf rounds following the [JSON:API
 ---
 # Documentation
 Published documentation can be seen [here](https://mattmcquinn.github.io/slate)
+
 Source for the documentation is [here](https://github.com/mattmcquinn/slate)
+
 ---
 ### Rails version: 5.0.0.1
 ### Ruby version: 2.2.4p230
