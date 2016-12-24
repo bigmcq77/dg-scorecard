@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20161218191021) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "num_holes"
@@ -25,7 +28,7 @@ ActiveRecord::Schema.define(version: 20161218191021) do
     t.integer  "par"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_holes_on_course_id"
+    t.index ["course_id"], name: "index_holes_on_course_id", using: :btree
   end
 
   create_table "rounds", force: :cascade do |t|
@@ -34,8 +37,8 @@ ActiveRecord::Schema.define(version: 20161218191021) do
     t.string   "weather"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_rounds_on_course_id"
-    t.index ["user_id"], name: "index_rounds_on_user_id"
+    t.index ["course_id"], name: "index_rounds_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_rounds_on_user_id", using: :btree
   end
 
   create_table "scores", force: :cascade do |t|
@@ -45,9 +48,9 @@ ActiveRecord::Schema.define(version: 20161218191021) do
     t.integer  "strokes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["hole_id"], name: "index_scores_on_hole_id"
-    t.index ["round_id"], name: "index_scores_on_round_id"
-    t.index ["user_id"], name: "index_scores_on_user_id"
+    t.index ["hole_id"], name: "index_scores_on_hole_id", using: :btree
+    t.index ["round_id"], name: "index_scores_on_round_id", using: :btree
+    t.index ["user_id"], name: "index_scores_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,4 +61,10 @@ ActiveRecord::Schema.define(version: 20161218191021) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "holes", "courses"
+  add_foreign_key "rounds", "courses"
+  add_foreign_key "rounds", "users"
+  add_foreign_key "scores", "holes"
+  add_foreign_key "scores", "rounds"
+  add_foreign_key "scores", "users"
 end
