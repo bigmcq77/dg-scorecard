@@ -19,4 +19,4 @@ Source for the documentation is [here](https://github.com/mattmcquinn/slate)
 
 ---
 ### Rails version: 5.0.0.1
-### Ruby version: 2.2.4p230
+### Ruby version: 2.3.0
