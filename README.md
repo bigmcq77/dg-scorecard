@@ -11,6 +11,8 @@ This is a Ruby on Rails API that stores disc golf rounds following the [JSON:API
 
 [rspec](https://github.com/rspec/rspec-rails) is used for testing
 
+The app currently lives [here on heroku](http://dgscorecard.herokuapp.com)
+
 ---
 # Documentation
 Published documentation can be seen [here](https://mattmcquinn.github.io/slate)
