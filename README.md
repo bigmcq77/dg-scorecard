@@ -13,6 +13,8 @@ This is a Ruby on Rails API that stores disc golf rounds following the [JSON:API
 
 The app currently lives [here on heroku](http://dgscorecard.herokuapp.com)
 
+The Ember.js frontend can be found [here](https://github.com/mattmcquinn/dg-scorecard-frontend)
+
 ---
 # Documentation
 Published documentation can be seen [here](https://mattmcquinn.github.io/slate)
