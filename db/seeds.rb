@@ -26,3 +26,9 @@ par_round = Round.create(user: user, course: c, weather: "Rainy")
 18.times do |i|
   Score.create(round: par_round, hole: Hole.find(i+1), strokes: Hole.find(i+1).par)
 end
+
+# create a bogey round
+bogey_round = Round.create(user: user, course: c, weather: "Rainy")
+18.times do |i|
+  Score.create(round: bogey_round, hole: Hole.find(i+1), strokes: Hole.find(i+1).par+1)
+end
