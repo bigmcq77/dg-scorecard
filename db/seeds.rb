@@ -4,6 +4,12 @@ user = User.create(name: Faker::Name.name,
                    password: "password",
                    password_confirmation: "password")
 
+User.create(name: "Matthew McQuinn",
+            email: "mmcquinn77@gmail.com",
+            password: "password",
+            password_confirmation: "password")
+
+
 # Create a course
 c = Course.create(name: Faker::Company.name,
                   num_holes: 18)
