@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/me', to: 'users#me'
   jsonapi_resources :users
   jsonapi_resources :courses
   jsonapi_resources :holes
