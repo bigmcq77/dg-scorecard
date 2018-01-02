@@ -43,6 +43,7 @@ group :development do
   gem 'guard-rspec'
   gem 'bullet'
   gem 'seed_dump'
+  gem 'httparty'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
