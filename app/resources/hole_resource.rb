@@ -1,5 +1,5 @@
 class HoleResource < BaseResource
-  attributes :number, :par
+  attributes :number, :par, :distance
   has_one :course
 
   def self.sortable_fields(context)
