@@ -5,4 +5,9 @@ class CourseResource < BaseResource
 
   filter :id
   filters :state, :city, :num_holes
+
+  filter :name, apply: -> (records, value, _options) {
+    records.where('lower(name) LIKE ?', "%#{value[0].downcase}%")
+  }
+
 end

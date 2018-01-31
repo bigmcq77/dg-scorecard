@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180101202901) do
+ActiveRecord::Schema.define(version: 20180121170421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20180101202901) do
     t.string   "state"
     t.string   "basket_type"
     t.string   "tee_type"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "holes", force: :cascade do |t|
