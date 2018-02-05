@@ -32,8 +32,8 @@ end_page.times do |index|
                  num_holes: num_holes,
                  basket_type: basket_type,
                  tee_type: tee_type,
-                 latitude: null,
-                 longitude: null)
+                 latitude: nil,
+                 longitude: nil)
 
     # get all of the Holes for the course we just saved
     hole_page = HTTParty.get(link + "&mode=hi")
