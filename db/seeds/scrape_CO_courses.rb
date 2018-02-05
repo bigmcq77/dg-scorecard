@@ -1,6 +1,5 @@
 require 'nokogiri'
 require 'httparty'
-require 'Pry'
 
 base_url = "https://www.dgcoursereview.com/browse.php?country=1&state=7&page="
 end_page = 8
