@@ -14,4 +14,8 @@ class CourseResource < BaseResource
     # return all courses that are within a 45 miles radius of this city
     records.near(value[0],45)
   }
+
+  filter :latlng, apply: -> (records, value, _options) {
+    records.near(value, 45)
+  }
 end
