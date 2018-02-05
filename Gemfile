@@ -16,6 +16,7 @@ gem 'knock'
 gem 'jsonapi-resources'
 gem 'jsonapi-authorization'
 gem 'faker'
+gem 'nokogiri'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

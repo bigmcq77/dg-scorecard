@@ -219,6 +219,7 @@ DEPENDENCIES
   jsonapi-resources
   knock
   listen (~> 3.0.5)
+  nokogiri
   pg
   puma (~> 3.0)
   rack-cors
