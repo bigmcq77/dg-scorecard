@@ -17,6 +17,7 @@ gem 'jsonapi-resources'
 gem 'jsonapi-authorization'
 gem 'faker'
 gem 'nokogiri'
+gem 'httparty'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
