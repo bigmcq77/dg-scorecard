@@ -32,7 +32,7 @@ module DgScorecard
 
     config.api_only = true
 
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
 
