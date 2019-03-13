@@ -236,7 +236,7 @@ DEPENDENCIES
   pg
   puma (~> 3.0)
   rack-cors
-  rails (~> 5.2.0)
+  rails (~> 5.2.2)
   rb-readline
   rspec-rails
   seed_dump
